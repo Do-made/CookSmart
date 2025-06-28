@@ -1,61 +1,101 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <title>CookSmart</title>
-    <link rel="stylesheet" href="style.css"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>CookSmart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#4CAF50" />
+  <style>
+    /* Responsive tweak */
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    .controls {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    input, select, button {
+      padding: 8px;
+      font-size: 1rem;
+    }
+
+    @media (min-width: 600px) {
+      .controls {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      padding: 10px;
+      color: black;
+      margin-top: 20px;
+    }
+  </style>
 </head>
-<link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#4CAF50">
 
 <body>
-    <div id="splash-screen">
-        <img src="logo.png" id="logo" alt="CookSmart Logo">
-        <h1 class="logo-text">CookSmart</h1>
+  <div id="splash-screen">
+    <img src="logo.png" id="logo" alt="CookSmart Logo" />
+    <h1 class="logo-text">CookSmart</h1>
+  </div>
+
+  <main style="display: none;">
+    <h1>CookSmart</h1>
+    <div class="controls">
+      <label for="category">Categoria:</label>
+      <select id="category">
+        <option value="tutte">Tutte</option>
+        <option value="classici">Classici</option>
+        <option value="vegani">Vegani</option>
+        <option value="salutari">Salutari</option>
+        <option value="senza_glutine">Senza Glutine</option>
+      </select>
+
+      <label for="piatti">Piatto:</label>
+      <select id="piatti"></select>
+
+      <label for="porzioni">Porzioni:</label>
+      <input type="number" id="porzioni" min="1" value="1" />
+
+      <button onclick="generaRicetta()">Genera Ricetta</button>
     </div>
-    <main style="display: none;">
-        <h1>CookSmart</h1>
-        <div class="controls">
-            <label for="category">Categoria:</label>
-            <select id="category">
-                <option value="tutte">Tutte</option>
-                <option value="classici">Classici</option>
-                <option value="vegani">Vegani</option>
-                <option value="salutari">Salutari</option>
-                <option value="senza_glutine">Senza Glutine</option>
-            </select>
-            <label for="piatti">Piatto:</label>
-            <select id="piatti"></select>
-            <label for="porzioni">Porzioni:</label>
-            <input type="number" id="porzioni" min="1" value="1">
-            <button onclick="generaRicetta()">Genera Ricetta</button>
-        </div>
-        <div id="output">
-    <h2 id="titolo-ricetta"></h2>
-    <ul id="lista-ingredienti"></ul>
-    <h3>Preparazione</h3>
-    <p id="testo-preparazione"></p>
-</div>
 
-    </main>
-    <script src="script.js"></script>
-    <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function () {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(function (registration) {
-          console.log('ServiceWorker registrato con successo: ', registration.scope);
-        })
-        .catch(function (error) {
-          console.log('ServiceWorker registration fallita: ', error);
-        });
-    });
-  }
-</script> 
+    <div id="output">
+      <h2 id="titolo-ricetta"></h2>
+      <ul id="lista-ingredienti"></ul>
+      <h3>Preparazione</h3>
+      <p id="testo-preparazione"></p>
+    </div>
+  </main>
 
-    <footer style="text-align: center; font-size: 0.9em; padding: 10px; color: black;">
-  Creato da Doretto Massimo
-</footer>
+  <footer>
+    Creato da Doretto Massimo
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(function (registration) {
+            console.log('ServiceWorker registrato con successo: ', registration.scope);
+          })
+          .catch(function (error) {
+            console.log('ServiceWorker registration fallita: ', error);
+          });
+      });
+    }
+  </script>
 </body>
 </html>
